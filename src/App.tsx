@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Nav from './components/Nav';
 import List from './components/List';
 import WeatherCard from './components/WeatherCard';
+import Units from './components/Units';
 import { fetchData, fetchCityData } from './fetch';
 import './App.css';
 
@@ -16,6 +17,8 @@ interface SelectedCities {
       text: string;
       icon: string;
     };
+    temp_c: number;
+    feelslike_c: number;
     temp_f: number;
     feelslike_f: number;
     gust_mph: number;
@@ -27,6 +30,7 @@ interface SelectedCities {
 function App() {
   const [cities, setCities] = useState(null);
   const [selectedCities, setSelectedCities] = useState<SelectedCities[]>([]);
+  const [units, setUnits] = useState(true);
 
   const handleSearch = async (city: string) => {
     const data = await fetchData(city);
@@ -44,9 +48,17 @@ function App() {
     }
   };
 
+  const handleOnChangeUnits = (condition: boolean) => {
+    setUnits(condition);
+  };
+
   return (
     <div>
       <Nav handleSearch={handleSearch} />
+      <div className='d-flex justify-content-end me-5'>
+        <Units changeUnits={handleOnChangeUnits} />
+      </div>
+
       <div className='container'>
         {cities && (
           <>
@@ -55,7 +67,7 @@ function App() {
           </>
         )}
         <div className='d-flex flex-wrap col-12'>
-          {selectedCities.length > 0 && <WeatherCard selectedCities={selectedCities as SelectedCities[]} />}
+          {selectedCities.length > 0 && <WeatherCard selectedCities={selectedCities} units={units} />}
         </div>
       </div>
     </div>
