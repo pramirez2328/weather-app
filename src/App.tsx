@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Nav from './components/Nav';
-import List from './components/List';
-import WeatherCard from './components/WeatherCard';
+import SearchList from './components/SearchList';
+import SelectedList from './components/SelectedList';
 import Units from './components/Units';
 import { fetchData, fetchCityData } from './fetch';
 import './App.css';
@@ -63,11 +63,11 @@ function App() {
         {cities && (
           <>
             <h5 className='mb-4'>Choose the city:</h5>
-            <List cities={cities} handleSearchCity={handleSearchCity} />
+            <SearchList cities={cities} handleSearchCity={handleSearchCity} />
           </>
         )}
         <div className='d-flex flex-wrap col-12'>
-          {selectedCities.length > 0 && <WeatherCard selectedCities={selectedCities} units={units} />}
+          {selectedCities.length > 0 && <SelectedList selectedCities={selectedCities} units={units} />}
         </div>
       </div>
     </div>

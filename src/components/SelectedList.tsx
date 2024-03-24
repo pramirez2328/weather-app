@@ -20,7 +20,7 @@ interface SelectedCities {
   };
 }
 
-function WeatherCard({ selectedCities, units }: { selectedCities: SelectedCities[]; units: boolean }) {
+function SelectedList({ selectedCities, units }: { selectedCities: SelectedCities[]; units: boolean }) {
   const handleSave = () => {
     console.log('save');
   };
@@ -56,4 +56,4 @@ function WeatherCard({ selectedCities, units }: { selectedCities: SelectedCities
   });
 }
 
-export default WeatherCard;
+export default SelectedList;

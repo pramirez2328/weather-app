@@ -7,7 +7,7 @@ interface City {
   lon: number;
   url: string;
 }
-function List({
+function SearchList({
   cities,
   handleSearchCity,
 }: {
@@ -46,4 +46,4 @@ function List({
   );
 }
 
-export default List;
+export default SearchList;
