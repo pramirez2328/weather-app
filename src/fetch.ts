@@ -13,7 +13,7 @@ export const fetchData = async (endpoint: string) => {
     const result = await response.json();
     return result || [];
   } catch (error) {
-    console.error(error);
+    console.error('this is the following error', error);
   }
 };
 
