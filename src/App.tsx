@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Nav from './components/Nav';
 import SearchList from './components/SearchList';
 import SelectedList from './components/SelectedList';
@@ -25,6 +25,7 @@ interface SelectedCities {
     humidity: number;
     last_updated_epoch: number;
   };
+  saved?: boolean;
 }
 
 function App() {
@@ -52,22 +53,82 @@ function App() {
     setUnits(condition);
   };
 
+  const handleSave = (city: string, region: string) => {
+    //save city in local storage
+    if (!localStorage.getItem(city)) {
+      // Save city in local storage
+      const data = `${city},${region}`;
+      localStorage.setItem(city, JSON.stringify(data));
+    }
+    const findCity = selectedCities.find((selectedCity) => selectedCity.location.name === city);
+    if (findCity) {
+      findCity.saved = true;
+      setSelectedCities([...selectedCities]);
+    }
+  };
+
+  const handleRemove = (city: string) => {
+    //remove city from local storage
+    localStorage.removeItem(city);
+    const arrWithoutCity = selectedCities.filter((selectedCity) => selectedCity.location.name !== city);
+    setSelectedCities(arrWithoutCity);
+  };
+
+  const handleRefresh = async (city: string, region: string) => {
+    const data = await fetchCityData(city, region);
+
+    if (Object.keys(data).length !== 0) {
+      setSelectedCities((prevCities) => {
+        const cleanCities = prevCities.filter((prevCity) => prevCity.location.name !== data.location.name);
+        data.saved = true;
+        return [...cleanCities, data];
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (localStorage.length) {
+      Object.values(localStorage).forEach(async (currentCity) => {
+        const [city, region] = currentCity.replace(/"/g, '').split(',');
+
+        const data = await fetchCityData(city, region);
+
+        if (Object.keys(data).length !== 0) {
+          setSelectedCities((prevCities) => {
+            const cleanCities = prevCities.filter((prevCity) => prevCity.location.name !== data.location.name);
+            data.saved = true;
+            return [...cleanCities, data];
+          });
+        }
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div>
       <Nav handleSearch={handleSearch} />
-      <div className='d-flex justify-content-end me-5'>
-        <Units changeUnits={handleOnChangeUnits} />
-      </div>
 
       <div className='container'>
+        <div className='d-flex justify-content-end me-2'>
+          <Units changeUnits={handleOnChangeUnits} />
+        </div>
         {cities && (
           <>
-            <h5 className='mb-4'>Choose the city:</h5>
+            <h6 className='mb-4 text-muted'>Choose the city:</h6>
             <SearchList cities={cities} handleSearchCity={handleSearchCity} />
           </>
         )}
         <div className='d-flex flex-wrap col-12'>
-          {selectedCities.length > 0 && <SelectedList selectedCities={selectedCities} units={units} />}
+          {selectedCities.length > 0 && (
+            <SelectedList
+              selectedCities={selectedCities}
+              units={units}
+              handleSave={handleSave}
+              handleRemove={handleRemove}
+              handleRefresh={handleRefresh}
+            />
+          )}
         </div>
       </div>
     </div>

@@ -12,14 +12,14 @@ const Nav = ({ handleSearch }: { handleSearch: (arg0: string) => void }) => {
   return (
     <nav className='navbar bg-body-tertiary px-4 mb-4'>
       <div className='container-fluid col-12'>
-        <div className='d-flex justify-content-between col-12 col-md-3'>
+        <div className='d-flex justify-content-between align-items-end col-12 col-md-1'>
           <a className='navbar-brand' href='#'>
             <img src={logo} alt='Logo' width='80' height='74' className='d-inline-block align-text-top' />
           </a>
-          <h1 className='align-self-end'>WeatherNow</h1>
+          <h1 id='app-name'>WeatherNow</h1>
         </div>
 
-        <div className='d-flex col-12 col-md-4' role='search'>
+        <div className='d-flex col-12 col-md-4 col-xl-3 mt-3 mt-md-0' role='search'>
           <input
             className='form-control me-2'
             type='search'

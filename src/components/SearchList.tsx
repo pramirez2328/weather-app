@@ -15,7 +15,7 @@ function SearchList({
   handleSearchCity: (arg0: string, arg1: string) => void;
 }) {
   return (
-    <div className='border border-danger rounded p-4'>
+    <div className='table-responsive'>
       <table className='table table-hover '>
         <thead>
           <tr>
