@@ -3,12 +3,10 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "https://pramirez2328.github.io/weather-app/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build --base=/weather-app/",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directiveg's --max-warnings 0",
     "preview": "vite preview"
   },
