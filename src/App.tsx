@@ -80,7 +80,6 @@ function App() {
     if (Object.keys(data).length !== 0) {
       setSelectedCities((prevCities) => {
         const cleanCities = prevCities.filter((prevCity) => prevCity.location.name !== data.location.name);
-        data.saved = true;
         return [...cleanCities, data];
       });
     }
