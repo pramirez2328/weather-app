@@ -1,25 +1,5 @@
 import WeatherCard from './WeatherCard';
-interface SelectedCities {
-  location: {
-    name: string;
-    region: string;
-    country: string;
-  };
-  current: {
-    condition: {
-      text: string;
-      icon: string;
-    };
-    temp_c: number;
-    feelslike_c: number;
-    temp_f: number;
-    feelslike_f: number;
-    gust_mph: number;
-    humidity: number;
-    last_updated_epoch: number;
-  };
-  saved?: boolean;
-}
+import { SelectedCitiesInterface } from '../types';
 
 function SelectedList({
   selectedCities,
@@ -28,7 +8,7 @@ function SelectedList({
   handleRemove,
   handleRefresh,
 }: {
-  selectedCities: SelectedCities[];
+  selectedCities: SelectedCitiesInterface[];
   units: boolean;
   handleSave: (arg0: string, arg1: string) => void;
   handleRemove: (arg0: string) => void;

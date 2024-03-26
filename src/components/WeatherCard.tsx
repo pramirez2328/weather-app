@@ -1,26 +1,6 @@
 import { FaHeart } from 'react-icons/fa';
+import { SelectedCitiesInterface } from '../types';
 
-interface SelectedCities {
-  location: {
-    name: string;
-    region: string;
-    country: string;
-  };
-  current: {
-    condition: {
-      text: string;
-      icon: string;
-    };
-    temp_c: number;
-    feelslike_c: number;
-    temp_f: number;
-    feelslike_f: number;
-    gust_mph: number;
-    humidity: number;
-    last_updated_epoch: number;
-  };
-  saved?: boolean;
-}
 function WeatherCard({
   city,
   units,
@@ -28,7 +8,7 @@ function WeatherCard({
   handleRemove,
   handleRefresh,
 }: {
-  city: SelectedCities;
+  city: SelectedCitiesInterface;
   units: boolean;
   handleSave: (arg0: string, arg1: string) => void;
   handleRemove: (arg0: string) => void;
@@ -37,6 +17,7 @@ function WeatherCard({
   const handleSaveCity = (city: string, region: string) => {
     handleSave(city, region);
   };
+
   return (
     <div className='col-12 col-md-6 col-xl-4 p-2'>
       <div className='card'>
@@ -70,10 +51,19 @@ function WeatherCard({
                 <FaHeart />
               </button>
             )}
+            <div>
+              {city.refresh ? (
+                <div className='spinner-border text-info ms-3' role='status' />
+              ) : (
+                <button
+                  className='btn btn-success'
+                  onClick={() => handleRefresh(city.location.name, city.location.region)}
+                >
+                  Refresh
+                </button>
+              )}
+            </div>
 
-            <button className='btn btn-success' onClick={() => handleRefresh(city.location.name, city.location.region)}>
-              Refresh
-            </button>
             {city.saved && (
               <button className='btn btn-danger' onClick={() => handleRemove(city.location.name)}>
                 Delete

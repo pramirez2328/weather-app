@@ -1,17 +1,10 @@
-interface City {
-  name: string;
-  region: string;
-  country: string;
-  id: number;
-  lat: number;
-  lon: number;
-  url: string;
-}
+import { CityInterface } from '../types';
+
 function SearchList({
   cities,
   handleSearchCity,
 }: {
-  cities: City[];
+  cities: CityInterface[];
   handleSearchCity: (arg0: string, arg1: string) => void;
 }) {
   return (

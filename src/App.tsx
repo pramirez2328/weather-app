@@ -4,33 +4,12 @@ import SearchList from './components/SearchList';
 import SelectedList from './components/SelectedList';
 import Units from './components/Units';
 import { fetchData, fetchCityData } from './fetch';
+import { SelectedCitiesInterface } from './types';
 import './App.css';
-
-interface SelectedCities {
-  location: {
-    name: string;
-    region: string;
-    country: string;
-  };
-  current: {
-    condition: {
-      text: string;
-      icon: string;
-    };
-    temp_c: number;
-    feelslike_c: number;
-    temp_f: number;
-    feelslike_f: number;
-    gust_mph: number;
-    humidity: number;
-    last_updated_epoch: number;
-  };
-  saved?: boolean;
-}
 
 function App() {
   const [cities, setCities] = useState(null);
-  const [selectedCities, setSelectedCities] = useState<SelectedCities[]>([]);
+  const [selectedCities, setSelectedCities] = useState<SelectedCitiesInterface[]>([]);
   const [units, setUnits] = useState(true);
 
   const handleSearch = async (city: string) => {
@@ -75,14 +54,21 @@ function App() {
   };
 
   const handleRefresh = async (city: string, region: string) => {
-    const data = await fetchCityData(city, region);
+    //refresh city data after 3 seconds
+    const updatedCities = selectedCities.map((i) => (i.location.name === city ? { ...i, refresh: true } : i));
 
-    if (Object.keys(data).length !== 0) {
-      setSelectedCities((prevCities) => {
-        const cleanCities = prevCities.filter((prevCity) => prevCity.location.name !== data.location.name);
-        return [...cleanCities, data];
-      });
-    }
+    setSelectedCities([...updatedCities]);
+
+    setTimeout(async () => {
+      const data = await fetchCityData(city, region);
+
+      if (Object.keys(data).length !== 0) {
+        const updatedCities = selectedCities.map((i) =>
+          i.location.name === city ? { ...data, saved: true, refresh: false } : i
+        );
+        setSelectedCities([...updatedCities]);
+      }
+    }, 2000);
   };
 
   useEffect(() => {
@@ -96,6 +82,7 @@ function App() {
           setSelectedCities((prevCities) => {
             const cleanCities = prevCities.filter((prevCity) => prevCity.location.name !== data.location.name);
             data.saved = true;
+            data.refresh = false;
             return [...cleanCities, data];
           });
         }
