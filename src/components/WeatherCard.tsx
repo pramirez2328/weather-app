@@ -29,9 +29,7 @@ function WeatherCard({
           </div>
           <p className='card-text'>Region: {city.location.region}</p>
           <p className='card-text'>Country: {city.location.country}</p>
-          <p className='card-text'>
-            Condition: <img src={city.current.condition.icon} /> {city.current.condition.text}
-          </p>
+
           <p className='card-text'>
             Temperature: {units ? city.current.temp_f : city.current.temp_c} °{units ? 'F' : 'C'}
           </p>
@@ -40,6 +38,9 @@ function WeatherCard({
           </p>
           <p className='card-text'>Winds Condition: {city.current.gust_mph} mph</p>
           <p className='card-text'>Humidity: {city.current.humidity}%</p>
+          <p className='card-text'>
+            Condition: <img src={city.current.condition.icon} /> {city.current.condition.text}
+          </p>
 
           <div className='d-flex justify-content-between'>
             {!city.saved && (
