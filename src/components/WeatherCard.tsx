@@ -23,7 +23,7 @@ function WeatherCard({
   return (
     <div className='col-12 col-md-6 col-xl-4 p-2'>
       <button className='btn btn-primary w-100 mb-2' onClick={() => setVisible(!visible)}>
-        {city.location.name}
+        {city.location.name} ({units ? city.current.temp_f : city.current.temp_c} °{units ? 'F' : 'C'})
       </button>
       {visible && (
         <div>
