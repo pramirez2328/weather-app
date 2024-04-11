@@ -1,9 +1,10 @@
 #app-name {
   font-size: 1.7em;
-  color: #6f6c6c;
+  color: #000000;
   font-weight: lighter;
 }
 
 #card-title {
-  background-color: rgba(0, 237, 237, 0.369);
+  background-color: rgba(1, 255, 204, 0.129);
+  color: rgb(0, 0, 206);
 }

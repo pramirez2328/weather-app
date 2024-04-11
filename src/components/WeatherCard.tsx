@@ -36,6 +36,11 @@ function WeatherCard({
               </div>
               <p className='card-text'>Region: {city.location.region}</p>
               <p className='card-text'>Country: {city.location.country}</p>
+              <p className='card-text'>
+                Current Date: {city.current.last_updated.split(' ')[0].split('-')[1]}/
+                {city.current.last_updated.split(' ')[0].split('-')[2]}/
+                {city.current.last_updated.split(' ')[0].split('-')[0]}
+              </p>
 
               <p className='card-text'>
                 Temperature: {units ? city.current.temp_f : city.current.temp_c} °{units ? 'F' : 'C'}

@@ -12,6 +12,7 @@ export interface SelectedCitiesInterface {
     temp_c: number;
     feelslike_c: number;
     temp_f: number;
+    last_updated: string;
     feelslike_f: number;
     wind_mph: number;
     gust_mph: number;

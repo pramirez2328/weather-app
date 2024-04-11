@@ -23,12 +23,12 @@ const Nav = ({ handleSearch }: { handleSearch: (arg0: string) => void }) => {
           <input
             className='form-control me-2'
             type='search'
-            placeholder='Search'
+            placeholder='...search city'
             aria-label='Search'
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <button className='btn btn-outline-success' type='submit' onClick={handleSearchButton}>
+          <button className='btn btn-outline-primary' type='submit' onClick={handleSearchButton}>
             Search
           </button>
         </div>
