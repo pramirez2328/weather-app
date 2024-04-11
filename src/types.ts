@@ -13,6 +13,7 @@ export interface SelectedCitiesInterface {
     feelslike_c: number;
     temp_f: number;
     feelslike_f: number;
+    wind_mph: number;
     gust_mph: number;
     humidity: number;
     last_updated_epoch: number;

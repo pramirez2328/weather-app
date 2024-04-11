@@ -43,7 +43,8 @@ function WeatherCard({
               <p className='card-text'>
                 Feels like: {units ? city.current.feelslike_f : city.current.feelslike_c} °{units ? 'F' : 'C'}
               </p>
-              <p className='card-text'>Winds Condition: {city.current.gust_mph} mph</p>
+              <p className='card-text'>Winds Condition: {city.current.wind_mph} mph</p>
+              <p className='card-text'>Wind gust: {city.current.gust_mph} mph</p>
               <p className='card-text'>Humidity: {city.current.humidity}%</p>
               <p className='card-text'>
                 Condition: <img src={city.current.condition.icon} /> {city.current.condition.text}
