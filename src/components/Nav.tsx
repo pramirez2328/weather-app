@@ -13,7 +13,7 @@ const Nav = ({ handleSearch }: { handleSearch: (arg0: string) => void }) => {
     <nav className='navbar bg-body-tertiary px-4 mb-4'>
       <div className='container-fluid col-12'>
         <div className='d-flex justify-content-between align-items-end col-12 col-md-1'>
-          <a className='navbar-brand' href='#'>
+          <a className='navbar-brand'>
             <img src={logo} alt='Logo' width='80' height='74' className='d-inline-block align-text-top' />
           </a>
           <h1 id='app-name'>WeatherNow</h1>
